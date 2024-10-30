@@ -1,0 +1,25 @@
+area welcome_messages
+
+station set_welcome_message_windowsdev[train]
+    if train[wreck] is set
+        return train
+
+    train[log][] = [4, set_welcome_message_windowsdev:]
+
+    if train[input][welcome_message_windowsdev] is not set
+        return train
+
+    if train[input][welcome_message_windowsdev] is not a string
+        train[wreck] = Please enter the text for welcome_message_windowsdev
+
+    if train[input][welcome_message_windowsdev] is shorter than 3 characters 
+        train[wreck] = Please enter more text for welcome_message_windowsdev 
+
+    if train[input][welcome_message_windowsdev] is longer than 100 characters 
+        train[wreck] = Please enter less text for welcome_message_windowsdev 
+
+    train[welcome_message_windowsdev] = train[input][welcome_message_windowsdev]
+
+    train[log][] = [6, welcome_message_windowsdev has been set to train[welcome_message_windowsdev]]
+
+    return train
